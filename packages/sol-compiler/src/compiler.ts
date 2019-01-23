@@ -103,6 +103,7 @@ export class Compiler {
         const passedOpts = opts || {};
         assert.doesConformToSchema('compiler.json', config, compilerOptionsSchema);
         this._contractsDir = path.resolve(passedOpts.contractsDir || config.contractsDir || DEFAULT_CONTRACTS_DIR);
+        console.log('this._contractsDir', this._contractsDir);
         this._workspaceDir = path.resolve(passedOpts.workspaceDir || config.workspaceDir || this._contractsDir);
         if (!this._contractsDir.includes(this._workspaceDir)) {
             throw new Error(
@@ -221,6 +222,7 @@ export class Compiler {
 
         for (const contractName of contractNames) {
             const contractSource = spyResolver.resolve(contractName);
+            console.log('contractName', contractName, 'contractSource', contractSource);
             const sourceTreeHashHex = getSourceTreeHash(
                 spyResolver,
                 path.join(this._contractsDir, contractSource.path),

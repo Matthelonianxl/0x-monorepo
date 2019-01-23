@@ -161,11 +161,9 @@ export function compileDocker(
         dependencyNameToPackagePath,
         (dependencyPackagePath: string, dependencyName: string) => `${dependencyName}=${dependencyPackagePath}`,
     );
-    standardInputDocker.sources = _.mapKeys(
-        standardInputDocker.sources,
-        (_source: solc.Source, sourcePath: string) => resolver.resolve(sourcePath).absolutePath,
-    );
-
+    standardInputDocker.sources = _.mapKeys(standardInputDocker.sources, (_source: solc.Source, sourcePath: string) => {
+        return resolver.resolve(sourcePath).absolutePath;
+    });
     const standardInputStrDocker = JSON.stringify(standardInputDocker, null, 2);
     const dockerCommand =
         `docker run -i -a stdin -a stdout -a stderr -v ${workspaceDir}:${workspaceDir} ethereum/solc:${solcVersion} ` +
@@ -187,6 +185,7 @@ export function compileDocker(
         contractsDir,
         dependencyNameToPackagePath,
     );
+    console.log(JSON.stringify(compiledDocker, null, 2));
     return compiledDocker;
 }
 

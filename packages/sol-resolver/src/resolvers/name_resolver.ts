@@ -14,8 +14,11 @@ export class NameResolver extends EnumerableResolver {
         this._contractsDir = contractsDir;
     }
     public resolveIfExists(lookupContractName: string): ContractSource | undefined {
+        console.log('this._contractsDir', this._contractsDir);
+        console.log('resolveIfExists', lookupContractName);
         let contractSource: ContractSource | undefined;
         const onFile = (filePath: string) => {
+            console.log('onFile', filePath);
             const contractName = path.basename(filePath, SOLIDITY_FILE_EXTENSION);
             if (contractName === lookupContractName) {
                 const absoluteContractPath = path.join(this._contractsDir, filePath);
@@ -41,6 +44,7 @@ export class NameResolver extends EnumerableResolver {
     }
     // tslint:disable-next-line:prefer-function-over-method
     private _traverseContractsDir(dirPath: string, onFile: (filePath: string) => true | void): boolean {
+        console.log('dirPath', dirPath);
         let dirContents: string[] = [];
         try {
             dirContents = fs.readdirSync(dirPath);
@@ -48,9 +52,11 @@ export class NameResolver extends EnumerableResolver {
             throw new Error(`No directory found at ${dirPath}`);
         }
         for (const fileName of dirContents) {
-            const absoluteEntryPath = path.join(dirPath, fileName);
+            const absoluteEntryPath = path.resolve(dirPath, fileName);
             const isDirectory = fs.lstatSync(absoluteEntryPath).isDirectory();
+            console.log('this._contractsDir', this._contractsDir, 'absoluteEntryPath', absoluteEntryPath);
             const entryPath = path.relative(this._contractsDir, absoluteEntryPath);
+            console.log('entryPath', entryPath);
             let isComplete;
             if (isDirectory) {
                 isComplete = this._traverseContractsDir(absoluteEntryPath, onFile);
