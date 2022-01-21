@@ -51,7 +51,7 @@
         "json-rpc-error": "2.0.0",
         "lodash": "^4.17.5",
         "semaphore-async-await": "^1.5.1",
-        "web3-provider-engine": "14.0.6"
+        "web3-provider-engine": "15.0.1"
     },
     "devDependencies": {
         "@0x/tslint-config": "^2.0.2",
