@@ -68,7 +68,7 @@
         "@0x/base-contract": "^3.0.13",
         "@0x/contract-addresses": "^2.2.0",
         "@0x/contract-artifacts": "^1.3.0",
-        "@0x/contract-wrappers": "^5.0.1",
+        "@0x/contract-wrappers": "^6.0.1",
         "@0x/fill-scenarios": "^1.1.2",
         "@0x/json-schemas": "^2.1.7",
         "@0x/order-utils": "^3.1.2",
